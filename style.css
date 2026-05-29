@@ -471,7 +471,7 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    transition: var(--transition-smooth);
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), background var(--transition-smooth);
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
@@ -773,7 +773,6 @@ body {
     overflow: hidden;
     opacity: 0;
     transform: translateY(-10px);
-    transition: max-height var(--transition-smooth), opacity var(--transition-smooth), transform var(--transition-smooth);
 }
 
 .conditional-fields.show {
