@@ -3,7 +3,7 @@ function startApp() {
     /* ==========================================================================
        1. STATE & GLOBAL VARIABLES
        ========================================================================== */
-    const WHATSAPP_NUMBER = '50686361195'; // Destinatario: Karla
+    const WHATSAPP_NUMBER = '50686361195'; // Destinatario: Karen y Joseph
     let isMusicPlaying = false;
     let selectedAttendance = 'si'; // Default is attending
 
@@ -50,28 +50,35 @@ function startApp() {
     /* ==========================================================================
        2. AMBIENT MUSIC PLAYER LOGIC
        ========================================================================== */
+    // Sync UI with actual audio playback state automatically
+    audio.addEventListener('play', () => {
+        musicToggleBtn.classList.add('playing');
+        isMusicPlaying = true;
+    });
+
+    audio.addEventListener('pause', () => {
+        musicToggleBtn.classList.remove('playing');
+        isMusicPlaying = false;
+    });
+
     function toggleMusic() {
-        if (isMusicPlaying) {
-            audio.pause();
-            musicToggleBtn.classList.remove('playing');
-            isMusicPlaying = false;
-        } else {
-            // Attempt to play audio
-            audio.play().then(() => {
-                musicToggleBtn.classList.add('playing');
-                isMusicPlaying = true;
-            }).catch(err => {
+        if (audio.paused) {
+            audio.play().catch(err => {
                 console.log("Error al reproducir audio: ", err);
             });
+        } else {
+            audio.pause();
         }
     }
 
     musicToggleBtn.addEventListener('click', toggleMusic);
 
-    // Auto-play trigger on first click anywhere on the page (browser safety policies)
+    // Auto-play trigger on first click/touch anywhere on the page (browser safety policies)
     function autoPlayOnFirstInteraction() {
-        if (!isMusicPlaying) {
-            toggleMusic();
+        if (audio.paused) {
+            audio.play().catch(err => {
+                console.log("Error al reproducir audio al interactuar: ", err);
+            });
         }
         document.removeEventListener('click', autoPlayOnFirstInteraction);
         document.removeEventListener('touchstart', autoPlayOnFirstInteraction);
@@ -291,7 +298,7 @@ function startApp() {
         const message = guestMessageTextarea.value.trim();
 
         // Build WhatsApp Custom Message with Rich Styling
-        let messageText = `¡Hola Karla! 🌸\n`;
+        let messageText = `¡Hola Karen y Joseph! 🌸\n`;
         
         if (selectedAttendance === 'si') {
             messageText += `Confirmo con mucha alegría mi asistencia al Baby Shower del pequeño *Liam* 🦖💚\n\n`;
@@ -325,7 +332,7 @@ function startApp() {
         thankYouName.textContent = guestName;
         
         if (selectedAttendance === 'si') {
-            thankYouMessage.innerHTML = `Tu amor y tus buenos deseos ya están abrigando el corazón de Karla y haciendo vibrar el nido del pequeño <strong>Liam</strong>. ¡Nos vemos en esta gran aventura!`;
+            thankYouMessage.innerHTML = `Tu amor y tus buenos deseos ya están abrigando el corazón de Karen y Joseph, y haciendo vibrar el nido del pequeño <strong>Liam</strong>. ¡Nos vemos en esta gran aventura!`;
             summaryStatus.textContent = '¡Confirmado con Amor! 🦖';
             summaryStatus.className = 'summary-value text-green font-title';
             summaryCompanionsRow.style.display = 'flex';
@@ -336,7 +343,7 @@ function startApp() {
             }
             summaryCompanions.textContent = companionSummary;
         } else {
-            thankYouMessage.innerHTML = `Gracias por enviar tus hermosas palabras de cariño. Aunque no puedas asistir físicamente, tu amor ya abriga a Karla y al pequeño <strong>Liam</strong> en este hermoso sendero. ✨`;
+            thankYouMessage.innerHTML = `Gracias por enviar tus hermosas palabras de cariño. Aunque no puedas asistir físicamente, tu amor ya abriga a Karen y Joseph, y al pequeño <strong>Liam</strong> en este hermoso sendero. ✨`;
             summaryStatus.textContent = 'No podré asistir, pero envío amor ✨';
             summaryStatus.className = 'summary-value text-gold font-title';
             summaryCompanionsRow.style.display = 'none';
