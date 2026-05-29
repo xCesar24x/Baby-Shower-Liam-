@@ -475,6 +475,8 @@ body {
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
+    min-height: 108px; /* Ensures equal heights across both cards */
+    box-sizing: border-box;
 }
 
 .detail-card::before {
