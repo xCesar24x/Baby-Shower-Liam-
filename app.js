@@ -311,6 +311,7 @@ function startApp() {
             } else {
                 messageText += `👶 *Niños:* Ninguno\n`;
             }
+            messageText += `📍 *Ubicación:* Quinta Abuelo Miguel (https://waze.com/ul/hd1u118whq)\n`;
         } else {
             messageText += `Quería comentarte que no podré asistir al Baby Shower de *Liam*, pero te envío a ti y al bebé todo mi amor y mejores deseos ✨🤍\n\n`;
             messageText += `*Detalles:*\n`;
